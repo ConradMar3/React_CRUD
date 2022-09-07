@@ -7,12 +7,13 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/database';
-import { createStore, applyMiddleware } from 'redux';
+import { applyMiddleware } from 'redux';
 import rootReducer from './store/reducers/rootReducer';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
+// eslint-disable-next-line no-undef
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 // Your web app's Firebase configuration
@@ -30,7 +31,7 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.firestore().settings({ timestampsInSnapshots: true });
-//firebase.analytics();
+
 
 ReactDOM.render(
   <React.StrictMode>
