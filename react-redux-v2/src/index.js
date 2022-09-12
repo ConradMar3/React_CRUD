@@ -1,28 +1,35 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
+import "firebase/compat/database";
 import reportWebVitals from './reportWebVitals';
 
-import { initializeApp } from "firebase/app";
 
-import { getAnalytics } from "firebase/analytics";
+var firebaseConfig = {
+
+  apiKey: "AIzaSyALkuaYaWu5AUVCLuzz3FyYWCEgBeRpwO0",
+
+  authDomain: "reactreduxv2.firebaseapp.com",
+
+  projectId: "reactreduxv2",
+
+  storageBucket: "reactreduxv2.appspot.com",
+
+  messagingSenderId: "841655648000",
+
+  appId: "1:841655648000:web:97d4bdd3394645714e3de5",
+
+  measurementId: "G-0WK98C6MPW"
+
+};
 
 
-
-// Initialize Firebase
-
-const app = initializeApp(firebaseConfig);
-
-const analytics = getAnalytics(app);
-
-
-ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+firebase.initializeApp(firebaseConfig);
+ReactDOM.render(<App />, document.getElementById("root"));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

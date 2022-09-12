@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import firebase from 'firebase/app';
-import 'firebase/database';
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
+import "firebase/compat/database";
 import { Table, Button, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 class User extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -12,7 +15,6 @@ class User extends Component {
             showDeleteDialog: false,
             selectedUser: {}
         };
-
         this.add = this.add.bind(this);
         this.closeDeleteDialog = this.closeDeleteDialog.bind(this);
         this.delete = this.delete.bind(this);
@@ -20,19 +22,20 @@ class User extends Component {
     }
 
     componentDidMount() {
-        firebase.database().ref('/').on('value', snapshot => {
-            let returnArr = [];
-            snapshot.forEach(data => {
-                var user = data.val();
-                user['key'] = data.key;
-                returnArr.push(user);
+        firebase.database().ref('/')
+            .on('value', snapshot => {
+                let returnArr = [];
+                snapshot.forEach(data => {
+                    var user = data.val();
+                    user['key'] = data.key;
+                    returnArr.push(user);
+                });
+                this.setState({
+                    users: returnArr
+                })
             });
-
-            this.setState({
-                users: returnArr
-            })
-        });
     }
+
     add(e) {
         this.props.history.push("/add");
     }
@@ -55,6 +58,8 @@ class User extends Component {
                 console.log("ERROR", error)
             });
     }
+
+
     closeDeleteDialog() {
         this.setState({
             showDeleteDialog: false,
@@ -82,15 +87,15 @@ class User extends Component {
                 <Button variant="primary" onClick={this.add}>Add</Button>
                 <Table striped bordered hover>
                     <thead>
-                    <tr>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    {listUsers}
+                        {listUsers}
                     </tbody>
                 </Table>
                 <Modal show={this.state.showDeleteDialog} onHide={this.closeDeleteDialog}>

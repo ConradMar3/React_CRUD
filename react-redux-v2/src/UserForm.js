@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import firebase from 'firebase/app';
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
+import "firebase/compat/database";
 
 
 class UserForm extends Component {
@@ -40,11 +43,7 @@ class UserForm extends Component {
                 <h1>{this.title}</h1>
                 <Formik
                     enableReinitialize={true}
-                    initialValues={{
-                        username: this.state.username,
-                        email: this.state.email
-                    }}
-
+                    initialValues={{ username: this.state.username, email: this.state.email }}
                     validate={values => {
                         let errors = {};
                         if (!values.email) {
@@ -90,12 +89,12 @@ class UserForm extends Component {
                         <Form>
                             <Field type="email" name="email" />
                             <span style={{ color: "red", fontWeight: "bold" }}>
-                <ErrorMessage name="email" component="div" />
-              </span>
+                                <ErrorMessage name="email" component="div" />
+                            </span>
                             <Field type="username" name="username" />
                             <span style={{ color: "red", fontWeight: "bold" }}>
-                <ErrorMessage name="username" component="div" />
-              </span>
+                                <ErrorMessage name="username" component="div" />
+                            </span>
                             <button type="submit" disabled={isSubmitting}>
                                 Submit
                             </button>
